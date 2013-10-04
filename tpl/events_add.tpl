@@ -15,8 +15,9 @@
 % default_helptext.update(helptext)
 % helptext = default_helptext
 
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-    <script type="text/javascript" src="/assets/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"> </script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/pikaday/pikaday.css">
+    <script type="text/javascript" src="/assets/moment/moment.min.js"> </script>
+    <script type="text/javascript" src="/assets/pikaday/pikaday.js"> </script>
     <link href="/assets/select2/select2.css" rel="stylesheet"/>
     <script src="/assets/select2/select2.js"></script>
 
@@ -131,9 +132,12 @@
 
 <script type="text/javascript">
   $(function() {
-    $('#event_datetime').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
+    var picker = new Pikaday({
+        field: $('#event_datetime')[0]
+        format: 'YYYY-MM-DD HH:mm:ss Z',
+        onSelect: function() {
+            console.log(this.getMoment().format('YYYY-MM-DD HH:mm:ss Z'));
+        }
     });
     $('#event_timestamp').change(function() {
         var myDate = new Date($(this).val() * 1000);

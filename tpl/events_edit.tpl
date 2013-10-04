@@ -1,5 +1,6 @@
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-    <script type="text/javascript" src="/assets/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"> </script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/pikaday/pikaday.css">
+    <script type="text/javascript" src="/assets/moment/moment.min.js"> </script>
+    <script type="text/javascript" src="/assets/pikaday/pikaday.js"> </script>
     <link href="/assets/select2/select2.css" rel="stylesheet"/>
     <script src="/assets/select2/select2.js"></script>
 
