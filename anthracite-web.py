@@ -194,7 +194,7 @@ def local_datepick_to_unix_timestamp(datepick):
 def events_edit_post(event_id):
     try:
         # TODO: do the same validation here as in add
-        ts = local_datepick_to_unix_timestamp(request.forms.event_datetime)
+        ts = int(request.forms.event_timestamp)
         # (select2 tags form field uses comma)
         tags = request.forms.event_tags.split(',')
         event = Event(timestamp=ts, desc=request.forms.event_desc, tags=tags, event_id=event_id)
@@ -216,7 +216,7 @@ def events_add(**kwargs):
 
 def add_post_validate_and_parse_base_attributes(request):
     # local_datepick_to_unix_timestamp will raise exceptions if input is bad
-    ts = local_datepick_to_unix_timestamp(request.forms.event_datetime)
+    ts = int(request.forms.event_timestamp)
     desc = request.forms.event_desc
     if not desc:
         raise Exception("description must not be empty")

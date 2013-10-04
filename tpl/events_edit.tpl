@@ -9,13 +9,8 @@
     <form action="/events/edit/{{event.event_id}}" method="POST">
       <fieldset>
         <label>Date-Time (enter manually, use the picker, or populate from a unix timestamp)</label>
-  <div id="event_datetime" class="input-append date">
-    <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" name="event_datetime"></input>
-    <span class="add-on">
-      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-      </i>
-    </span>
-  </div>
+		<input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" name="event_datetime" id="event_datetime"></input>
+		<input type="hidden" size="10" maxlength="10" id="event_timestamp" name="event_timestamp" placeholder="unix timestamp"/>
         <label>Description</label>
         <textarea rows="10" name="event_desc">{{event.desc}}
         </textarea>
@@ -34,11 +29,14 @@
 
 <script type="text/javascript">
   $(function() {
-    $('#event_datetime').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
-      });
-    var picker = $('#event_datetime').data('datetimepicker');
-    picker.setLocalDate(new Date({{event.timestamp}} * 1000));
+    var picker = new Pikaday({
+        field: $('#event_datetime')[0],
+        showTime: true,
+        format: "YYYY-MM-DD hh:mm A Z",
+        onSelect: function() {
+            $('#event_timestamp').val(this.getMoment().unix());
+        }
+    });
+    picker.setMoment(moment.unix({{event.timestamp}}));
   });
 </script>

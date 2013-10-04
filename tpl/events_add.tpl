@@ -34,12 +34,11 @@
     <div class="control-group">
         <label class="control-label"><b>Date-Time</b></label>
         <div class="controls">
-            <div id="event_datetime" class="input-append date">
-                <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" name="event_datetime"></input>
-                <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-            </div>
+            <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text" name="event_datetime" id="event_datetime"></input>
             % if timestamp_feeder:
                 <input type="text" size="10" maxlength="10" id="event_timestamp" name="event_timestamp" placeholder="unix timestamp"/>
+            % else:
+                <input type="hidden" size="10" maxlength="10" id="event_timestamp" name="event_timestamp" placeholder="unix timestamp"/>
             % end
             <span class="help-block">{{helptext.get('event_datetime', '')}}</span>
         </div>
@@ -133,16 +132,15 @@
 <script type="text/javascript">
   $(function() {
     var picker = new Pikaday({
-        field: $('#event_datetime')[0]
-        format: 'YYYY-MM-DD HH:mm:ss Z',
+        field: $('#event_datetime')[0],
+        showTime: true,
+        format: "YYYY-MM-DD hh:mm A Z",
         onSelect: function() {
-            console.log(this.getMoment().format('YYYY-MM-DD HH:mm:ss Z'));
+            $('#event_timestamp').val(this.getMoment().unix());
         }
     });
     $('#event_timestamp').change(function() {
-        var myDate = new Date($(this).val() * 1000);
-        var picker = $('#event_datetime').data('datetimepicker');
-        picker.setLocalDate(myDate);
+        picker.setMoment(moment.unix($(this).val()));
     });
   });
 </script>

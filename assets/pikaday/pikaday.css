@@ -106,6 +106,7 @@
 .pika-select {
     display: inline-block;
     *display: inline;
+    width: 80px;
 }
 
 .pika-table {
