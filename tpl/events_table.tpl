@@ -1,5 +1,7 @@
 %import datetime
 %format = '%Y-%m-%d %H:%M:%S'
+    <script type="text/javascript" src="/assets/moment/moment.min.js"> </script>
+    
 <table class="table table-striped table-condensed" 
 <tr><th>Date-Time</th><th>Description</th><th>Operations</th></tr>
 %for event in events:
@@ -13,7 +15,7 @@
         %end
     %end
   <tr class="{{row_class}}">
-    <td>{{datetime.datetime.fromtimestamp(event.timestamp).strftime(format)}}</td>
+    <td class="timestamp">{{event.timestamp}}</td>
     <td>
         {{!event.desc}}
         <br/>
@@ -60,5 +62,8 @@
           }
         });
     });
+    $( ".timestamp" ).html(function( index, value ) {
+    	return moment.unix(value).format("YYYY-MM-DD hh:mm A Z");
+	});
 </script>
 </table>
